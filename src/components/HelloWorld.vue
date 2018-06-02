@@ -47,6 +47,7 @@
       <TabViewItem title="Completed">
         <ListView
           v-for="todo in completeTodos"
+          @itemTap="onCompleteTodoTap"
         >
           <v-template>
             <Label :text="todo.title"></Label>
@@ -71,6 +72,7 @@
           todoAction: 'What do you want to do with this task?',
           cancel: 'Cancel',
           completeTodo: 'Mark as completed',
+          undoneTodo: 'Mark as incompleted',
           deleteTodo: 'Delete forever'
         }
       }
@@ -110,11 +112,29 @@
               case this.t('completeTodo'):
                 item.done = true
                 break
+
               case this.t('deleteTodo'):
                 // Removes the tapped todo.
                 this.todos.splice(index, 1)
                 break
-              case this.t('cancel') || undefined: // Dismisses the dialog.
+            }
+          })
+      },
+
+      onCompleteTodoTap ({ item, index }) {
+        return action(
+          this.t('todoAction'),
+          this.t('cancel'),
+          [this.t('undoneTodo'), this.t('deleteTodo')]
+        )
+          .then(res => {
+            switch (res) {
+              case this.t('undoneTodo'):
+                item.done = false
+                break
+
+              case this.t('deleteTodo'):
+                this.todos.splice(index, 1)
                 break
             }
           })
