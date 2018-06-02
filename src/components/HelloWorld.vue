@@ -33,7 +33,7 @@
           </GridLayout>
 
           <ListView
-            for="todo in incompleteTodos"
+            v-for="todo in incompleteTodos"
             height="100%"
             @item-tap="onListItemTap"
           > <!-- Make sure to set a height or your list will not show on iOS. -->
@@ -46,7 +46,7 @@
 
       <TabViewItem title="Completed">
         <ListView
-          for="todo in completeTodos"
+          v-for="todo in completeTodos"
         >
           <v-template>
             <Label :text="todo.title"></Label>
