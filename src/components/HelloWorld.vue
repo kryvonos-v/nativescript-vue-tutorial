@@ -25,6 +25,7 @@
               @returnPress="addTask"
             /> <!-- Configures the text field and ensures that pressing Return on the keyboard produces the same result as tapping the button. -->
             <Button
+              class="add-task-btn"
               row="0"
               col="1"
               text="Add task"
@@ -73,7 +74,8 @@
           cancel: 'Cancel',
           completeTodo: 'Mark as completed',
           undoneTodo: 'Mark as incompleted',
-          deleteTodo: 'Delete forever'
+          deleteTodo: 'Delete forever',
+          todoTitleRequired: 'We need todo title.'
         }
       }
     },
@@ -96,6 +98,10 @@
 
       addTask () {
         let title = this.taskTitle
+
+        if (!title) {
+          return alert(this.t('todoTitleRequired'))
+        }
 
         this.todos.push({ title, done: false })
         this.taskTitle = ''
