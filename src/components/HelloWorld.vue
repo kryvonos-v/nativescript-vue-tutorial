@@ -35,7 +35,7 @@
           <ListView
             v-for="todo in incompleteTodos"
             height="100%"
-            @item-tap="onListItemTap"
+            @itemTap="onListItemTap"
           > <!-- Make sure to set a height or your list will not show on iOS. -->
             <v-template>
               <Label :text="todo.title" />
